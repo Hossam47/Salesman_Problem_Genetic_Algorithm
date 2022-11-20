@@ -5,7 +5,7 @@ import sheets.GeneSheet;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-public class Gene implements GeneSheet {
+public class Gene {
 
     private final int exon;
     private final int intron;
@@ -24,12 +24,11 @@ public class Gene implements GeneSheet {
     }
 
 
-    @Override
-    public Float getGeneDistance(Gene gene) {
-        return (float) sqrt(pow(getExon() - gene.getExon(), 2) + pow(getIntron() - gene.getIntron(), 2));
+    public Double getGeneDistance(Gene gene) {
+        return  sqrt(pow(getExon() - gene.getExon(), 2)
+                + pow(getIntron() - gene.getIntron(), 2));
     }
 
-    @Override
     public String showGeneDetails() {
         return "(" + this.exon + ", " + this.intron + ")";
     }
