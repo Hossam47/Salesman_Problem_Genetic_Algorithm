@@ -29,7 +29,8 @@ public class Gene {
                 + pow(getIntron() - gene.getIntron(), 2));
     }
 
-    public String showGeneDetails() {
+    @Override
+    public String toString() {
         return "(" + this.exon + ", " + this.intron + ")";
     }
 }

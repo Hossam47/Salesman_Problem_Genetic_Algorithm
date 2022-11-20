@@ -14,6 +14,9 @@ public class Chromosome implements ChromosomeSheet {
     private final List<Gene> currentChromosome;
     private double chromosomeDistance;
 
+    public double getDistance() {
+        return this.chromosomeDistance;
+    }
     public List<Gene> getChromosome() {
         return currentChromosome;
     }
@@ -87,4 +90,14 @@ public class Chromosome implements ChromosomeSheet {
         }
         return totalDistance;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        for (final Gene gene : this.currentChromosome) {
+            builder.append(gene.toString()).append((" : "));
+        }
+        return builder.toString();
+    }
+
 }

@@ -6,7 +6,7 @@ import static utils.GeneralUtils.*;
 
 public class DataModel {
 
-    public static final Gene[] COUNTRIES = generateGenesOfCountries(20);
+    public static final Gene[] COUNTRIES = generateGenesOfCountries(25);
 
     private static Gene[] generateGenesOfCountries(int countriesNums) {
 
@@ -15,8 +15,8 @@ public class DataModel {
         for (int i = 0; i < countriesNums; i++) {
 
             countries[i] = new Gene(
-                    getRandomGene(SCREEN_HEIGHT - 80),
-                    getRandomGene(SCREEN_WIDTH - 80)
+                    getRandomGene(SCREEN_WIDTH),
+                    getRandomGene(SCREEN_HEIGHT)
             );
         }
         return countries;

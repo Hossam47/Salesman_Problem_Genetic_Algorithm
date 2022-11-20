@@ -1,5 +1,6 @@
 package genetic_algorithm;
 
+
 import sheets.AlgorithmSheet;
 
 import java.util.ArrayList;
@@ -10,26 +11,25 @@ import java.util.stream.Collectors;
 
 import static utils.GeneralUtils.getRandomChromosome;
 
-public class GeneticAlgorithm {
-
+public class GeneticAlgorithm implements AlgorithmSheet {
     private List<Chromosome> ways;
     private final int algorithmLimitation;
 
-
     public GeneticAlgorithm(Gene[] countries, int algorithmLimitation) {
-        this.ways = createWaysBetweenCities(countries,algorithmLimitation);
+        this.ways = createWaysBetweenCities(countries, algorithmLimitation);
         this.algorithmLimitation = algorithmLimitation;
     }
 
-   public List<Chromosome> getWays() {
+    public List<Chromosome> getWays() {
         return this.ways;
     }
 
-   public Chromosome getBestWay() {
+    public Chromosome getBestWay() {
         return this.ways.get(0);
     }
 
-    private List<Chromosome> createWaysBetweenCities(Gene[] countries, final int limitSize) {
+    private List<Chromosome> createWaysBetweenCities(Gene[] countries,
+                                                     final int limitSize) {
 
         List<Chromosome> ways = new ArrayList<>();
 
@@ -40,30 +40,29 @@ public class GeneticAlgorithm {
         return ways;
     }
 
+    @Override
     public void runGeneticAlgorithm() {
         runCrossOver();
         runMutation();
         runSelection();
     }
 
+    @Override
     public void runCrossOver() {
 
         List<Chromosome> newWay = new ArrayList<>();
 
         for (Chromosome chromosome : this.ways) {
-
             Chromosome neighbourChromosome = getNeighbourCrossOver(chromosome);
             newWay.addAll(Arrays.asList(chromosome.initCrossOver(neighbourChromosome)));
-
         }
         this.ways.addAll(newWay);
 
     }
 
+    @Override
     public void runMutation() {
-
-         List<Chromosome> mutationWays = new ArrayList<>();
-
+        List<Chromosome> mutationWays = new ArrayList<>();
         for (int i = 0; i < this.ways.size(); i++) {
             Chromosome mutationWay = this.ways.get(getRandomChromosome(this.ways.size())).initChromosomeMutation();
             mutationWays.add(mutationWay);
@@ -72,10 +71,10 @@ public class GeneticAlgorithm {
         this.ways.addAll(mutationWays);
     }
 
+    @Override
     public void runSelection() {
-        this.ways.sort(Comparator.comparingDouble(Chromosome::getChromosomeDistance));
+        this.ways.sort(Comparator.comparingDouble(Chromosome::getDistance));
         this.ways = this.ways.stream().limit(this.algorithmLimitation).collect(Collectors.toList());
-
     }
 
     private Chromosome getNeighbourCrossOver(Chromosome chromosome) {
