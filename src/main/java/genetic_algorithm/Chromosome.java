@@ -12,9 +12,9 @@ import static utils.GeneralUtils.getRandomGene;
 public class Chromosome implements ChromosomeSheet {
 
     private final List<Gene> currentChromosome;
-    private double chromosomeDistance;
+    private final double chromosomeDistance;
 
-    public double getDistance() {
+    public double getChromosomeDistance() {
         return this.chromosomeDistance;
     }
     public List<Gene> getChromosome() {
@@ -23,7 +23,7 @@ public class Chromosome implements ChromosomeSheet {
 
     public Chromosome(List<Gene> chromosome) {
         this.currentChromosome = chromosome;
-        this.chromosomeDistance=getChromosomeDistance();
+        this.chromosomeDistance= calculateChromosomeDistance();
     }
 
     static Chromosome createChromosome(final Gene[] Genes) {
@@ -34,13 +34,12 @@ public class Chromosome implements ChromosomeSheet {
     @Override
     public Chromosome[] initCrossOver(Chromosome neighbourChromosome) {
 
-        List<Gene>[] firstParent = chromosomeDivider(this.currentChromosome);
+        List<Gene>[] firstParent = chromosomeDivider(currentChromosome);
         List<Gene>[] secondParent = chromosomeDivider(neighbourChromosome.getChromosome());
 
         ArrayList<Gene> firstCrossOver = new ArrayList<>(firstParent[0]);
         ArrayList<Gene> secondCrossOver = new ArrayList<>(secondParent[1]);
 
-        // 12 34 ---- 31 24 ==   12 24 // 12 34 --- 31 24 == 31 34
         for (int i = 0; i < 2; i++) {
             for (Gene gene : secondParent[i]) {
                 if (!firstCrossOver.contains(gene)) {
@@ -63,7 +62,7 @@ public class Chromosome implements ChromosomeSheet {
     @Override
     public Chromosome initChromosomeMutation() {
 
-        ArrayList<Gene> chromosomeMutation = new ArrayList<>(this.currentChromosome);
+        ArrayList<Gene> chromosomeMutation = new ArrayList<>(currentChromosome);
 
         int firstGene = getRandomGene(chromosomeMutation.size());
         int secondGene = getRandomGene(chromosomeMutation.size());
@@ -83,10 +82,10 @@ public class Chromosome implements ChromosomeSheet {
         return new List[]{firstPart, secondPart};
     }
 
-    public Double getChromosomeDistance() {
+    public Double calculateChromosomeDistance() {
         Double totalDistance = 0.0;
         for (int i = 0; i < this.currentChromosome.size() - 1; i++) {
-            totalDistance += this.currentChromosome.get(i).getGeneDistance(this.currentChromosome.get(i + 1));
+            totalDistance += this.currentChromosome.get(i).convertGeneToDistance(this.currentChromosome.get(i + 1));
         }
         return totalDistance;
     }

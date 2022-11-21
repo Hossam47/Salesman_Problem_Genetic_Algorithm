@@ -6,7 +6,7 @@ import static utils.GeneralUtils.*;
 
 public class DataModel {
 
-    public static final Gene[] COUNTRIES = generateGenesOfCountries(25);
+    public static final Gene[] COUNTRIES = generateGenesOfCountries(40);
 
     private static Gene[] generateGenesOfCountries(int countriesNums) {
 

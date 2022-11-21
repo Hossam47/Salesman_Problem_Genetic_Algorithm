@@ -1,7 +1,5 @@
 package genetic_algorithm;
 
-import sheets.GeneSheet;
-
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
@@ -24,7 +22,7 @@ public class Gene {
     }
 
 
-    public Double getGeneDistance(Gene gene) {
+    public Double convertGeneToDistance(Gene gene) {
         return  sqrt(pow(getExon() - gene.getExon(), 2)
                 + pow(getIntron() - gene.getIntron(), 2));
     }

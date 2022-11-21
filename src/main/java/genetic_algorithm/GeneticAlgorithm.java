@@ -66,14 +66,13 @@ public class GeneticAlgorithm implements AlgorithmSheet {
         for (int i = 0; i < this.ways.size(); i++) {
             Chromosome mutationWay = this.ways.get(getRandomChromosome(this.ways.size())).initChromosomeMutation();
             mutationWays.add(mutationWay);
-
         }
         this.ways.addAll(mutationWays);
     }
 
     @Override
     public void runSelection() {
-        this.ways.sort(Comparator.comparingDouble(Chromosome::getDistance));
+        this.ways.sort(Comparator.comparingDouble(Chromosome::getChromosomeDistance));
         this.ways = this.ways.stream().limit(this.algorithmLimitation).collect(Collectors.toList());
     }
 

@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class GeneralUtils {
 
+    public static final int ALGORITHM_LIMIT = 100000;
     public final static Random random = new Random(10000);
     public static final int SCREEN_HEIGHT = 800;
     public static final int SCREEN_WIDTH = 1000;
